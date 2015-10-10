@@ -2,7 +2,7 @@
 # Project 1 - Plot 3
 
 # The dataset has 2,075,259 rows and 9 columns.
-epc <- read.table("household_power_consumption.txt", header=TRUE, sep=";")
+epc <- read.table("household_power_consumption.txt", header=TRUE, sep=";", na.strings="?")
 
 # We will only be using data from the dates 2007-02-01 and 2007-02-02.
 epcdata <- epc[epc$Date %in% c("1/2/2007", "2/2/2007") , ]
@@ -13,11 +13,6 @@ rm(epc) # cleaning the memory
 epcdata$datetime <- paste(epcdata$Date, epcdata$Time) # Crear la columna datetime
 epcdata$Date <- as.Date(epcdata$Date, format="%d/%m/%Y")
 epcdata$datetime <- strptime(epcdata$datetime, format="%d/%m/%Y %H:%M:%S")
-
-# Note that in this dataset missing values are coded as ?.
-# "?" values are in columns 3 to 8
-epcdata$Sub_metering_1 <- as.numeric(levels(epcdata$Sub_metering_1))[epcdata$Sub_metering_1]
-epcdata$Sub_metering_2 <- as.numeric(levels(epcdata$Sub_metering_2))[epcdata$Sub_metering_2]
 
 # Plot 3
 xlab <- NA
